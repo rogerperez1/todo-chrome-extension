@@ -5,16 +5,14 @@ import "semantic-ui-css/semantic.min.css";
 
 function App() {
   return (
-    <div className="App">
-      <Segment>
-        Pellentesque habitant morbi tristique senectus.
-        <Header icon>
-          <Icon name="file pdf outline" />
-          No documents are listed for this customer.
-        </Header>
-        <Button primary>Add Document</Button>
-      </Segment>
-    </div>
+    <Segment className="todo-section">
+      Pellentesque habitant morbi tristique senectus.
+      <Header icon>
+        <Icon name="file pdf outline" />
+        No documents are listed for this customer.
+      </Header>
+      <Button primary>Add Document</Button>
+    </Segment>
   );
 }
 
