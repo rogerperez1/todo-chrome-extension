@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { rootReducer } from "./Redux";
-import App from "./App";
+import TodoHub from "./TodoHub";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 import "semantic-ui-css/semantic.min.css";
@@ -13,7 +13,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <TodoHub />
   </Provider>,
   document.getElementById("root")
 );
