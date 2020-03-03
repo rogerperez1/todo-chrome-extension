@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  align-items: center;
+}
+.todo-today {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+}
+
+.todo-input {
+  width: 400px;
+}
