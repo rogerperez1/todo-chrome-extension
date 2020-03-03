@@ -25,6 +25,22 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
           </Header>
           <Button primary>Add Document</Button>
         </Segment>
+        <Segment className="todo-today">
+          Pellentesque habitant morbi tristique senectus.
+          <Header icon>
+            <Icon name="file pdf outline" />
+            No documents are listed for this customer.
+          </Header>
+          <Button primary>Add Document</Button>
+        </Segment>
+        <Segment className="todo-today">
+          Pellentesque habitant morbi tristique senectus.
+          <Header icon>
+            <Icon name="file pdf outline" />
+            No documents are listed for this customer.
+          </Header>
+          <Button primary>Add Document</Button>
+        </Segment>
       </div>
     );
   }
