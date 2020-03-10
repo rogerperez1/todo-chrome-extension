@@ -1,11 +1,10 @@
 export function todaysDate(): string {
   const date = new Date();
-  const dayOfWeek: string = dayOfTheWeek();
+  const dayOfWeek: string = dayOfTheWeekShort();
   const month: string = writtenShortMonth();
   const day: number = date.getDate();
   const year: number = date.getFullYear();
 
-  console.log("DATE:::", month, date);
   const fullDate: string = `${dayOfWeek} ${month} ${day}, ${year}`;
   return fullDate;
 }
@@ -77,7 +76,7 @@ function writtenShortMonth(): string {
   return month[date.getMonth()];
 }
 
-function dayOfTheWeek(): string {
+function dayOfTheWeekShort(): string {
   const date = new Date();
   let day = [];
   day[0] = "Sun";
