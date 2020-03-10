@@ -1,14 +1,28 @@
 .main {
   display: flex;
-  align-items: center;
+  justify-content: center;
 }
-.todo-today {
+.main-segment {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  width: 100%;
+  flex-direction: column;
+  margin-top: 10%;
+  width: 600px;
 }
 
 .todo-input {
   width: 400px;
+}
+
+/* Universal */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-center {
+  align-items: center;
 }

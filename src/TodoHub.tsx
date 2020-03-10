@@ -25,24 +25,17 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   public render(): JSX.Element {
     return (
       <div className="main">
-        <Segment className="todo-today">
-          <Header as="h2" floated="right">
-            Floated Content
-          </Header>
-          <Form>
+        <Segment className="main-segment">
+          <Header>Today</Header>
+          <Form className="flex-row">
             <Form.Input
-              icon="user"
               iconPosition="left"
-              label="Username"
               placeholder="Username"
               className="todo-input"
             />
 
-            <Button content="Login" primary />
+            <Form.Button content="Login" primary />
           </Form>
-          <div>
-            <Button content="Sign up" icon="signup" size="big" />
-          </div>
         </Segment>
       </div>
     );
