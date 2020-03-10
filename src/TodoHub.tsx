@@ -1,5 +1,5 @@
 import React from "react";
-import "./TodoHub.css";
+import "./TodoHub.scss";
 import {
   Segment,
   Header,
