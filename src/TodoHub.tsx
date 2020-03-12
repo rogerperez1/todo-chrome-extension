@@ -1,6 +1,14 @@
 import React, { FormEvent } from "react";
 import "./TodoHub.scss";
-import { Segment, Header, Button, Form, Input, List } from "semantic-ui-react";
+import {
+  Segment,
+  Header,
+  Button,
+  Form,
+  Input,
+  List,
+  Checkbox
+} from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { todaysDate, currentTime, todaysDateAlt } from "./Helpers/utilities";
 // import { Item, Items } from "./Interfaces";
@@ -50,7 +58,6 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   }
 
   handleItemChange(e: React.ChangeEvent<HTMLInputElement>) {
-    console.log(e.target.value);
     this.setState({ item: e.target.value });
   }
 
@@ -71,10 +78,13 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     return this.state.items?.map(item => {
       count++;
       return (
-        <List.Item key={count}>
-          <List.Icon name="github" size="large" verticalAlign="middle" />
-          <List.Content content={item} />
-        </List.Item>
+        <Segment vertical>
+          <List.Item key={count}>
+            <Checkbox />
+            <List.Icon name="github" size="large" verticalAlign="middle" />
+            <List.Content content={item} />
+          </List.Item>
+        </Segment>
       );
     });
   }
