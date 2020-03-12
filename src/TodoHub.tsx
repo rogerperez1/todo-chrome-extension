@@ -3,15 +3,13 @@ import "./TodoHub.scss";
 import {
   Segment,
   Header,
-  Button,
   Form,
   Input,
   List,
   Checkbox
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { todaysDate, currentTime, todaysDateAlt } from "./Helpers/utilities";
-// import { Item, Items } from "./Interfaces";
+import { currentTime, todaysDateAlt } from "./Helpers/utilities";
 
 interface IHubProps {}
 interface IHubState {
