@@ -1,17 +1,9 @@
-import React, { SyntheticEvent } from "react";
+import React, { FormEvent } from "react";
 import "./TodoHub.scss";
-import {
-  Segment,
-  Header,
-  Icon,
-  Button,
-  Grid,
-  Divider,
-  Form
-} from "semantic-ui-react";
+import { Segment, Header, Button, Form, Input } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { todaysDate, currentTime } from "./Helpers/utilities";
-import { Item, Items } from "./Interfaces";
+// import { Item, Items } from "./Interfaces";
 
 interface IHubProps {}
 interface IHubState {
@@ -25,7 +17,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.handleItemChange = this.handleItemChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.state = {
-      items: []
+      items: ["testOne"]
     };
   }
 
@@ -40,23 +32,17 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
             <span>{todaysDate()}</span>
             <span>{currentTime()}</span>
           </Header>
-          <Form className="flex-row">
-            <Form.Input
-              iconPosition="left"
+          <Form className="flex-row" onSubmit={this.handleAdd}>
+            <Input
+              id="addTodo"
+              name="addTodo"
               placeholder="add todo item"
-              className="todo-input"
-              name="input-item"
               onChange={this.handleItemChange}
             />
 
-            <Form.Button
-              content="Add"
-              name="add-item"
-              primary
-              onClick={this.handleAdd}
-            />
+            <Form.Button content="Add" name="add-item" primary />
           </Form>
-          <div id="list-items"></div>
+          <div id="list-items">{this.renderItems()}</div>
         </Segment>
       </div>
     );
@@ -67,17 +53,27 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.setState({ item: e.target.value });
   }
 
-  handleAdd(e: SyntheticEvent) {
+  handleAdd(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(e);
-    // debugger;
-    const items: any = this.state.items.push(this.state.item!);
-    this.setState({ items: items });
+
+    const items: any = this.state.items;
+    try {
+      this.setState({ items: [...items, this.state.item], item: "" });
+      e.currentTarget.addTodo.value = "";
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   renderItems() {
+    let count = 0;
     return this.state.items?.map(item => {
-      return <div>1. {item}</div>;
+      count++;
+      return (
+        <div key={count}>
+          {count}. {item}
+        </div>
+      );
     });
   }
 }

@@ -21,7 +21,7 @@ export function currentDate(): string {
   const d = new Date();
   let month = addZero(d.getMonth() + 1);
   let day = addZero(d.getDate());
-  let currDate = `**** ${d.getFullYear()}-${month}-${day}`;
+  let currDate = `${d.getFullYear()}-${month}-${day}`;
   return currDate;
 }
 
@@ -38,24 +38,6 @@ function amPmTime(): any {
   const amPm: string = date.getHours() > 11 ? "PM" : "AM";
 
   return [hours, amPm];
-}
-
-function writtenFullMonth() {
-  const date = new Date();
-  let month = [];
-  month[0] = "January";
-  month[1] = "February";
-  month[2] = "March";
-  month[3] = "April";
-  month[4] = "May";
-  month[5] = "June";
-  month[6] = "July";
-  month[7] = "August";
-  month[8] = "September";
-  month[9] = "October";
-  month[10] = "November";
-  month[11] = "December";
-  return month[date.getMonth()];
 }
 
 function writtenShortMonth(): string {
