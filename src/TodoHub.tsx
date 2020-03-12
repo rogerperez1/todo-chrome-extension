@@ -2,7 +2,7 @@ import React, { FormEvent } from "react";
 import "./TodoHub.scss";
 import { Segment, Header, Button, Form, Input } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import { todaysDate, currentTime } from "./Helpers/utilities";
+import { todaysDate, currentTime, todaysDateAlt } from "./Helpers/utilities";
 // import { Item, Items } from "./Interfaces";
 
 interface IHubProps {}
@@ -29,12 +29,13 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
         <Segment className="mt-5 main-segment">
           <Header className="flex-col">
             <span>Today </span>
-            <span>{todaysDate()}</span>
+            <span>{todaysDateAlt()}</span>
             <span>{currentTime()}</span>
           </Header>
           <Form className="flex-row" onSubmit={this.handleAdd}>
             <Input
               id="addTodo"
+              className="todo-input"
               name="addTodo"
               placeholder="add todo item"
               onChange={this.handleItemChange}
@@ -42,7 +43,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
 
             <Form.Button content="Add" name="add-item" primary />
           </Form>
-          <div id="list-items">{this.renderItems()}</div>
+          <div className="todo-items">{this.renderItems()}</div>
         </Segment>
       </div>
     );

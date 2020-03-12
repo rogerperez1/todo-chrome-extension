@@ -9,10 +9,24 @@ export function todaysDate(): string {
   return fullDate;
 }
 
+export function todaysDateAlt(): string {
+  const date = new Date().toDateString();
+  const length = date.length;
+  const d = date.substr(0, length - 5);
+  const year: number = new Date().getFullYear();
+  return `${d}, ${year}`;
+}
+
 export function currentTime(): string {
   const date = new Date();
   const hours = amPmTime();
-  const mins = date.getMinutes();
+  let minsNum = date.getMinutes();
+  let mins: string = `${minsNum}`;
+  console.log(minsNum.toString().split("").length);
+
+  if (minsNum.toString().split("").length !== 2) {
+    mins = `0${minsNum}`;
+  }
   const time = `${hours[0]}:${mins} ${hours[1]}`;
   return time;
 }
