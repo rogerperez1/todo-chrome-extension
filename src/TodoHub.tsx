@@ -89,7 +89,6 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   renderItems() {
     let count = 0;
     const items: string[] = [...this.state.items, ...this.state.localItems];
-    console.log("III", items);
 
     return items?.map(item => {
       count++;
