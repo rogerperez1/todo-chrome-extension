@@ -76,8 +76,8 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     return this.state.items?.map(item => {
       count++;
       return (
-        <Segment vertical>
-          <List.Item key={count}>
+        <Segment key={count} vertical>
+          <List.Item>
             <Checkbox />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content content={item} />
