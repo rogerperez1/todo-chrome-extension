@@ -13,8 +13,9 @@ import { currentTime, todaysDateAlt } from "./Helpers/utilities";
 
 interface IHubProps {}
 interface IHubState {
-  item?: string;
+  item: string;
   items: string[];
+  localItems: string[];
 }
 
 class TodoHub extends React.Component<IHubProps, IHubState> {
@@ -23,11 +24,18 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.handleItemChange = this.handleItemChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.state = {
-      items: ["testOne"]
+      items: ["testOne"],
+      item: "",
+      localItems: []
     };
   }
 
-  public async componentDidMount() {}
+  public async componentDidMount() {
+    const existing = localStorage.getItem("local");
+    let localItems = existing ? existing.split(",") : [];
+
+    this.setState({ localItems: [...localItems] });
+  }
 
   public render(): JSX.Element {
     return (
@@ -62,9 +70,16 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   handleAdd(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const items: any = this.state.items;
+    // const items: any = this.state.items;
+    const item: string = this.state.item;
     try {
-      this.setState({ items: [...items, this.state.item], item: "" });
+      // this.setState({ items: [...items, this.state.item], item: "" });
+
+      if (item.length > 0) {
+        this.setState({ localItems: [...this.state.localItems, item] }, () => {
+          localStorage.setItem("local", this.state.localItems.toString());
+        });
+      }
       e.currentTarget.addTodo.value = "";
     } catch (err) {
       console.log(err);
@@ -73,7 +88,10 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
 
   renderItems() {
     let count = 0;
-    return this.state.items?.map(item => {
+    const items: string[] = [...this.state.items, ...this.state.localItems];
+    console.log("III", items);
+
+    return items?.map(item => {
       count++;
       return (
         <Segment key={count} vertical>
