@@ -46,7 +46,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
             <span>{todaysDateAlt()}</span>
             <span>{currentTime()}</span>
           </Header>
-          <Form className="flex-row" onSubmit={this.handleAdd}>
+          <Form className="flex-row form-input" onSubmit={this.handleAdd}>
             <Input
               id="addTodo"
               className="todo-input"
