@@ -24,6 +24,9 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     super(props);
     this.handleItemChange = this.handleItemChange.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
+    this.onMouseEnterItem = this.onMouseEnterItem.bind(this);
+    this.onMouseLeaveItem = this.onMouseLeaveItem.bind(this);
+
     this.state = {
       items: ["testOne"],
       item: "",
@@ -56,7 +59,6 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
               placeholder="add todo item"
               onChange={this.handleItemChange}
             />
-
             <Form.Button content="Add" name="add-item" primary />
           </Form>
           <List className="todo-items">{this.renderItems()}</List>
@@ -89,32 +91,51 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     }
   }
 
-  renderItems() {
+  renderItems(): JSX.Element[] {
     let count = 0;
     const items: string[] = [...this.state.items, ...this.state.localItems];
 
     return items?.map(item => {
       count++;
       return (
-        <Segment key={count} vertical onMouseEnter={this.handleItemOptions()}>
+        <Segment
+          key={count}
+          vertical
+          onMouseEnter={this.onMouseEnterItem}
+          onMouseLeave={this.onMouseLeaveItem}
+        >
           <List.Item>
             <Checkbox />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content content={item} />
-            <List.Icon name="edit" size="large" verticalAlign="middle" />
-            <List.Icon
-              name="x"
-              size="large"
-              verticalAlign="middle"
-              color="red"
-            />
+
+            {this.state.viewItemOptions && (
+              <div>
+                <List.Icon name="edit" size="large" verticalAlign="middle" />
+                <List.Icon
+                  name="x"
+                  size="large"
+                  verticalAlign="middle"
+                  color="red"
+                />
+              </div>
+            )}
           </List.Item>
         </Segment>
       );
     });
   }
 
-  handleItemOptions() {}
+  onMouseEnterItem(): void {
+    this.setState({
+      viewItemOptions: true
+    });
+  }
+  onMouseLeaveItem(): void {
+    this.setState({
+      viewItemOptions: false
+    });
+  }
 }
 
 export default TodoHub;
