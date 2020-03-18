@@ -16,6 +16,7 @@ interface IHubState {
   item: string;
   items: string[];
   localItems: string[];
+  viewItemOptions: boolean;
 }
 
 class TodoHub extends React.Component<IHubProps, IHubState> {
@@ -26,7 +27,8 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.state = {
       items: ["testOne"],
       item: "",
-      localItems: []
+      localItems: [],
+      viewItemOptions: false
     };
   }
 
@@ -73,6 +75,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     // const items: any = this.state.items;
     const item: string = this.state.item;
     try {
+      // Stored online items
       // this.setState({ items: [...items, this.state.item], item: "" });
 
       if (item.length > 0) {
@@ -93,16 +96,25 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     return items?.map(item => {
       count++;
       return (
-        <Segment key={count} vertical>
+        <Segment key={count} vertical onMouseEnter={this.handleItemOptions()}>
           <List.Item>
             <Checkbox />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content content={item} />
+            <List.Icon name="edit" size="large" verticalAlign="middle" />
+            <List.Icon
+              name="x"
+              size="large"
+              verticalAlign="middle"
+              color="red"
+            />
           </List.Item>
         </Segment>
       );
     });
   }
+
+  handleItemOptions() {}
 }
 
 export default TodoHub;
