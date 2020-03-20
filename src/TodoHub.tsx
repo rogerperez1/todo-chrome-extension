@@ -74,39 +74,38 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   handleAdd(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // const items: any = this.state.items;
-    const item: string = this.state.item;
+    const { item, items } = this.state;
     if (item.length < 1) {
       return;
     }
     try {
-      let localItem;
-      let checkValue = localStorage.getItem(item);
-      //
-      if (checkValue) {
-        localItem = JSON.parse(checkValue);
+      let jsonItem: any;
+      let getItem: string | null = localStorage.getItem(item);
+
+      if (getItem) {
+        jsonItem = JSON.parse(getItem);
       } else {
-        localItem = {
+        jsonItem = {
           checked: false,
           value: item,
           date: "date now"
         };
       }
 
-      this.setState({ localItems: [...this.state.localItems, item] }, () => {
-        localStorage.setItem("local", this.state.localItems.toString());
+      this.setState({ localItems: [...items, item] }, () => {
+        localStorage.setItem("local", items.toString());
       });
-      localStorage.setItem(item, JSON.stringify(localItem));
+      localStorage.setItem(item, JSON.stringify(jsonItem));
       debugger;
       e.currentTarget.addTodo.value = "";
     } catch (err) {
-      console.log(err);
+      console.log("Error", err);
     }
   }
 
   renderItems(): JSX.Element[] {
     let count = 0;
-    const items: string[] = [...this.state.items, ...this.state.localItems];
+    const items: string[] = [...this.state.items, ...this.state.items];
 
     return items?.map(item => {
       count++;
