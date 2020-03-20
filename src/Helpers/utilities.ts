@@ -22,7 +22,6 @@ export function currentTime(): string {
   const hours = amPmTime();
   let minsNum = date.getMinutes();
   let mins: string = `${minsNum}`;
-  console.log(minsNum.toString().split("").length);
 
   if (minsNum.toString().split("").length !== 2) {
     mins = `0${minsNum}`;

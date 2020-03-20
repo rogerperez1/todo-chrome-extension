@@ -6,7 +6,8 @@ import {
   Form,
   Input,
   List,
-  Checkbox
+  Checkbox,
+  CheckboxProps
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { currentTime, todaysDateAlt } from "./Helpers/utilities";
@@ -22,25 +23,28 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   constructor(props: IHubState) {
     super(props);
     this.handleItemChange = this.handleItemChange.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
+    this.addItem = this.addItem.bind(this);
     this.onMouseEnterItem = this.onMouseEnterItem.bind(this);
     this.onMouseLeaveItem = this.onMouseLeaveItem.bind(this);
 
     this.state = {
-      items: ["testOne"],
+      items: [],
       item: "",
       viewItemOptions: false
     };
   }
 
   public async componentDidMount() {
-    const existing = localStorage.getItem("local");
-    let items = existing ? existing.split(",") : [];
+    const local = localStorage.getItem("local");
+    let localItems: string[] = local ? local.split(",") : [];
 
-    this.setState({ items: [...items] });
+    this.setState({
+      items: [...this.state.items, ...localItems]
+    });
   }
 
   public render(): JSX.Element {
+    console.log("this.state.items", this.state.items);
     return (
       <div className="main">
         <Segment className="mt-5 main-segment">
@@ -49,7 +53,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
             <span>{todaysDateAlt()}</span>
             <span>{currentTime()}</span>
           </Header>
-          <Form className="flex-row form-input" onSubmit={this.handleAdd}>
+          <Form className="flex-row form-input" onSubmit={this.addItem}>
             <Input
               id="addTodo"
               className="todo-input"
@@ -69,32 +73,30 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.setState({ item: e.target.value });
   }
 
-  handleAdd(e: FormEvent<HTMLFormElement>) {
+  addItem(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const { item, items } = this.state;
-    if (item.length < 1) {
+    if (this.state.item.length < 1) {
       return;
     }
     try {
       let jsonItem: any;
-      let getItem: string | null = localStorage.getItem(item);
+      let getItem: string | null = localStorage.getItem(this.state.item);
 
       if (getItem) {
         jsonItem = JSON.parse(getItem);
       } else {
         jsonItem = {
           checked: false,
-          value: item,
+          value: this.state.item,
           date: "date now"
         };
       }
+      const finalItems = [...this.state.items, this.state.item];
+      this.setState({ items: finalItems });
 
-      this.setState({ items: [...items, item] }, () => {
-        localStorage.setItem("local", items.toString());
-      });
-      localStorage.setItem(item, JSON.stringify(jsonItem));
-      debugger;
+      localStorage.setItem("local", finalItems.toString());
+      localStorage.setItem(this.state.item, JSON.stringify(jsonItem));
       e.currentTarget.addTodo.value = "";
     } catch (err) {
       console.log("Error", err);
@@ -103,9 +105,8 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
 
   renderItems(): JSX.Element[] {
     let count = 0;
-    const items: string[] = [...this.state.items, ...this.state.items];
-
-    return items?.map(item => {
+    console.log("IIIItems", this.state.items);
+    return this.state.items.map(item => {
       count++;
       return (
         <Segment
@@ -117,7 +118,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
           <List.Item>
             <Checkbox onClick={this.handleCheckboxClick} />
             <List.Icon name="github" size="large" verticalAlign="middle" />
-            <List.Content content={item} />
+            <List.Content name={item} content={item} />
             <div></div>
             {this.state.viewItemOptions && (
               <div className="item-options">
@@ -140,7 +141,13 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
       );
     });
   }
-  private handleCheckboxClick = (): void => {};
+  private handleCheckboxClick = (
+    e: React.MouseEvent<HTMLInputElement, MouseEvent>,
+    data: CheckboxProps
+  ): void => {
+    console.log(e);
+    console.log(data);
+  };
 
   private onMouseEnterItem = (): void => {
     this.setState({
