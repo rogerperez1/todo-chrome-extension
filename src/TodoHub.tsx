@@ -15,7 +15,6 @@ interface IHubProps {}
 interface IHubState {
   item: string;
   items: string[];
-  localItems: string[];
   viewItemOptions: boolean;
 }
 
@@ -30,16 +29,15 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     this.state = {
       items: ["testOne"],
       item: "",
-      localItems: [],
       viewItemOptions: false
     };
   }
 
   public async componentDidMount() {
     const existing = localStorage.getItem("local");
-    let localItems = existing ? existing.split(",") : [];
+    let items = existing ? existing.split(",") : [];
 
-    this.setState({ localItems: [...localItems] });
+    this.setState({ items: [...items] });
   }
 
   public render(): JSX.Element {
@@ -92,7 +90,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
         };
       }
 
-      this.setState({ localItems: [...items, item] }, () => {
+      this.setState({ items: [...items, item] }, () => {
         localStorage.setItem("local", items.toString());
       });
       localStorage.setItem(item, JSON.stringify(jsonItem));
@@ -117,7 +115,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
           onMouseLeave={this.onMouseLeaveItem}
         >
           <List.Item>
-            <Checkbox />
+            <Checkbox onClick={this.handleCheckboxClick} />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content content={item} />
             <div></div>
@@ -142,17 +140,19 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
       );
     });
   }
+  private handleCheckboxClick = (): void => {};
 
-  onMouseEnterItem(): void {
+  private onMouseEnterItem = (): void => {
     this.setState({
       viewItemOptions: true
     });
-  }
-  onMouseLeaveItem(): void {
+  };
+
+  private onMouseLeaveItem = (): void => {
     this.setState({
       viewItemOptions: false
     });
-  }
+  };
 }
 
 export default TodoHub;
