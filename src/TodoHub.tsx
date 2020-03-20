@@ -76,15 +76,28 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
 
     // const items: any = this.state.items;
     const item: string = this.state.item;
+    if (item.length < 1) {
+      return;
+    }
     try {
-      // Stored online items
-      // this.setState({ items: [...items, this.state.item], item: "" });
-
-      if (item.length > 0) {
-        this.setState({ localItems: [...this.state.localItems, item] }, () => {
-          localStorage.setItem("local", this.state.localItems.toString());
-        });
+      let localItem;
+      let checkValue = localStorage.getItem(item);
+      //
+      if (checkValue) {
+        localItem = JSON.parse(checkValue);
+      } else {
+        localItem = {
+          checked: false,
+          value: item,
+          date: "date now"
+        };
       }
+
+      this.setState({ localItems: [...this.state.localItems, item] }, () => {
+        localStorage.setItem("local", this.state.localItems.toString());
+      });
+      localStorage.setItem(item, JSON.stringify(localItem));
+      debugger;
       e.currentTarget.addTodo.value = "";
     } catch (err) {
       console.log(err);
@@ -108,15 +121,20 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
             <Checkbox />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content content={item} />
-
+            <div></div>
             {this.state.viewItemOptions && (
-              <div>
-                <List.Icon name="edit" size="large" verticalAlign="middle" />
+              <div className="item-options">
                 <List.Icon
+                  className="edit-item"
+                  name="edit"
+                  size="large"
+                  verticalAlign="middle"
+                />
+                <List.Icon
+                  className="x-item"
                   name="x"
                   size="large"
                   verticalAlign="middle"
-                  color="red"
                 />
               </div>
             )}

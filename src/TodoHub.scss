@@ -20,6 +20,23 @@
   margin: 0 auto;
 }
 
+.item-options {
+  display: flex;
+  align-items: flex-end;
+}
+
+.edit-item {
+  &:hover {
+    color: darkgreen;
+  }
+}
+.x-item {
+  color: darkred;
+  &:hover {
+    color: blue;
+  }
+}
+
 /* ***************************** */
 /* *****Semantic UI classes***** */
 /* ***************************** */
@@ -32,11 +49,18 @@
   width: 100%;
 }
 
+// flex .item-options to right edit/remove icons
+.item div:last-child {
+  margin-left: auto;
+}
+
 .checkbox {
   margin-right: 12px;
 }
+/* ***************************** */
+/* ********* Universal ********* */
+/* ***************************** */
 
-/* Universal */
 .flex-row {
   display: flex;
   flex-direction: row;
