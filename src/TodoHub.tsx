@@ -113,28 +113,27 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
           vertical
           onMouseEnter={this.onMouseEnterItem}
           onMouseLeave={this.onMouseLeaveItem}
+          className="item-segment"
         >
           <List.Item>
             <Checkbox onClick={this.handleCheckboxClick} />
             <List.Icon name="github" size="large" verticalAlign="middle" />
             <List.Content name={item} content={item} />
             <div></div>
-            {this.state.viewItemOptions && (
-              <div className="item-options">
-                <List.Icon
-                  className="edit-item"
-                  name="edit"
-                  size="large"
-                  verticalAlign="middle"
-                />
-                <List.Icon
-                  className="x-item"
-                  name="x"
-                  size="large"
-                  verticalAlign="middle"
-                />
-              </div>
-            )}
+            <div className="item-options">
+              <List.Icon
+                className="edit-item"
+                name="edit"
+                size="large"
+                verticalAlign="middle"
+              />
+              <List.Icon
+                className="x-item"
+                name="x"
+                size="large"
+                verticalAlign="middle"
+              />
+            </div>
           </List.Item>
         </Segment>
       );

@@ -21,6 +21,9 @@
 }
 
 .item-options {
+  display: none;
+}
+.item-segment:hover .item-options {
   display: flex;
   align-items: flex-end;
 }
