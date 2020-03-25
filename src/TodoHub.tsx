@@ -16,7 +16,6 @@ interface IHubProps {}
 interface IHubState {
   item: string;
   items: string[];
-  viewItemOptions: boolean;
 }
 
 class TodoHub extends React.Component<IHubProps, IHubState> {
@@ -29,8 +28,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
 
     this.state = {
       items: [],
-      item: "",
-      viewItemOptions: false
+      item: ""
     };
   }
 
