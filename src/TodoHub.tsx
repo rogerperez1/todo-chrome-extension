@@ -23,8 +23,6 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     super(props);
     this.handleItemChange = this.handleItemChange.bind(this);
     this.addItem = this.addItem.bind(this);
-    this.onMouseEnterItem = this.onMouseEnterItem.bind(this);
-    this.onMouseLeaveItem = this.onMouseLeaveItem.bind(this);
 
     this.state = {
       items: [],
@@ -106,13 +104,7 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
     return this.state.items.map(item => {
       count++;
       return (
-        <Segment
-          key={count}
-          vertical
-          onMouseEnter={this.onMouseEnterItem}
-          onMouseLeave={this.onMouseLeaveItem}
-          className="item-segment"
-        >
+        <Segment key={count} vertical className="item-segment">
           <List.Item>
             <Checkbox onClick={this.handleCheckboxClick} />
             <List.Icon name="github" size="large" verticalAlign="middle" />
@@ -143,18 +135,6 @@ class TodoHub extends React.Component<IHubProps, IHubState> {
   ): void => {
     console.log(e);
     console.log(data);
-  };
-
-  private onMouseEnterItem = (): void => {
-    this.setState({
-      viewItemOptions: true
-    });
-  };
-
-  private onMouseLeaveItem = (): void => {
-    this.setState({
-      viewItemOptions: false
-    });
   };
 }
 
